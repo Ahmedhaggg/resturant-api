@@ -11,7 +11,7 @@ exports.signin = async (req, res, next) => {
     
     if (match) {
         const token = jwt.sign({email, _id: user._id}, process.env.JWTSECRET)
-        res.status(200).json({
+        return res.status(200).json({
             token,
             _id: user._id,
             email: user.email,
