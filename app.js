@@ -24,9 +24,9 @@ mongoose.connect(`mongodb+srv://travels:AhmedHaggag@12345@cluster0.u5klm.mongodb
 
 // import routes
 const authRouter = require('./routes/auth')
-// const productsRouter = require('./routes/products')
+const productsRouter = require('./routes/products')
 
 // using routes
 app.use('/api/', authRouter)
-// app.use('/api/products/', productsRouter)
+app.use('/api/products/', productsRouter)
 app.listen(3000, () => console.log("server is running"))
