@@ -2,10 +2,12 @@ const express = require("express");
 const mongoose = require('mongoose');
 const env = require('dotenv');
 const cors = require('cors')
+const path = require('path')
 
 const app = express();
 app.use(express.urlencoded({extended: false}))
 app.use(express.json())
+app.use(express.static(path.join(__dirname, 'uploads')))
 app.use(cors())
 
 

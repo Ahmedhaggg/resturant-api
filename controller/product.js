@@ -1,7 +1,7 @@
 const Product = require('../model/product');
 const slugify = require('slugify')
 const validationResult = require('express-validator').validationResult;
-
+const fs = require('fs')
 const checkErr = (expectedErr, errors) => {
     let validationErr =  [];
     expectedErr.forEach(element => {
