@@ -29,6 +29,13 @@ const authRouter = require('./routes/auth')
 const productsRouter = require('./routes/products')
 
 // using routes
+app.post('/', (req, res, next) => {
+    () => {
+        return res.status(200).json({message: "first"});
+        
+    }
+    return res.status(200).json({message: "second"});
+})
 app.use('/api/', authRouter)
 app.use('/api/products/', productsRouter)
 app.listen(3000, () => console.log("server is running"))

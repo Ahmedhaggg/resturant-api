@@ -9,7 +9,7 @@ const prodcutSchema = mongoose.Schema({
         type: String,
         required: true
     },
-    description: {
+    descripition: {
         type: String,
         required: true
     }, 
@@ -39,6 +39,10 @@ const prodcutSchema = mongoose.Schema({
             }
         ]
     },
+    defaultTopping: {
+        type: []
+    }
+    ,
     specialsAdditions: {
         type: [
             {

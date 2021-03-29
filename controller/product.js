@@ -2,18 +2,37 @@ const Product = require('../model/product');
 const slugify = require('slugify')
 const validationResult = require('express-validator').validationResult;
 const fs = require('fs')
-const checkErr = (expectedErr, errors) => {
-    let validationErr =  [];
-    expectedErr.forEach(element => {
-        validationErr =  errors.find(err => err.param === expectedErr)
-    });
-    if (validationErr.length > 0) {
-        await fs.unlink(uploadsPath + req.file.filename, (err) => {
-            if (err) {
-                return validationErr;
-            };
-        })
-        return validationErr;
+let uploadsPath =  __dirname.replace("controller", "uploads") + '\\' ;
+
+exports.getAllproducts = async (req, res, next) => {
+    const query = Product.find()
+    query.select("_id name category slug image")
+    const products = await query.exec();
+    products.forEach(product => product.image = process.env.URL+ product.image)
+    if (products.length > 0)
+        return res.status(200).json({products})
+    if (!products) 
+        return res.status(500).json({message: "something went wrong"});
+    if (products.length == 0) 
+        return res.status(200).json({message: "There are no products"});
+}
+exports.getProduct = (req, res, next) => {
+    
+    res.status(200).json({slug})
+}
+
+const checkErr = (expectedErrors, errors) => {
+    let validationErrors =  [];
+    let expectedErrList = Object.keys(expectedErrors);
+    expectedErrList.forEach(expectedErr => {
+        let error =  errors.find(err => err.param === expectedErr);
+        if (error) {
+            validationErrors.push(error)
+        } 
+    })
+    console.log(validationErrors)
+    if (validationErrors.length > 0) {
+        return validationErrors;
     } else {
         return false;
     } 
@@ -24,53 +43,54 @@ exports.addProduct = async (req, res, next) => {
     if (!req.file) {
         return res.status(400).json({message: "you should select file"});
     }
-    const {name, descripition, category , sizes, toppings, specialsAdditions, price} = req.body;
+    const {name, descripition, category , sizes, toppings, defaultTopping , specialsAdditions, price} = req.body;
     let data;
     let error = validationResult(req).array();
     if (category == "pizza") {
-        data = {name, slug ,descripition, category, sizes, toppings, specialsAdditions }
+        data = {name ,descripition, category, sizes, toppings, defaultTopping , specialsAdditions }
         let checkErrResult = checkErr(data, error);
         if(checkErrResult) {
+            await fs.unlinkSync(uploadsPath + req.file.filename)
             return res.status(400).json({error: checkErrResult});
         }
     } else if (category == "drink") {
-        data = {name, slug ,descripition, category, sizes }
+        data = {name ,descripition, category, sizes }
         let checkErrResult = checkErr(data, error);
         if(checkErrResult) {
+            await fs.unlinkSync(uploadsPath + req.file.filename)
             return res.status(400).json({error: checkErrResult});
         }
     } else if (category == "salads") {
-        data = {name, slug ,descripition, category, sizes, toppings }
+        data = {name ,descripition, category, sizes, toppings }
         let checkErrResult = checkErr(data, error);
         if(checkErrResult) {
+            await fs.unlinkSync(uploadsPath + req.file.filename)
             return res.status(400).json({error: checkErrResult});
         }
     } else if (category == "starters") {
-        data = {name, slug ,descripition, category, sizes }
+        data = {name ,descripition, category, sizes }
         let checkErrResult = checkErr(data, error);
         if(checkErrResult) {
+            await fs.unlinkSync(uploadsPath + req.file.filename)
             return res.status(400).json({error: checkErrResult});
         }
     } else if (category == "pasta") {
-        data = {name, slug ,descripition, category, sizes }
+        data = {name ,descripition, category, price }
         let checkErrResult = checkErr(data, error);
         if(checkErrResult) {
+            await fs.unlinkSync(uploadsPath + req.file.filename)
             return res.status(400).json({error: checkErrResult});
         }
     } else if (category == "desert") {
-        data = {name, slug ,descripition, category, price }
+        data = {name ,descripition, category, price }
         let checkErrResult = checkErr(data, error);
         if(checkErrResult) {
+            await fs.unlinkSync(uploadsPath + req.file.filename)
             return res.status(400).json({error: checkErrResult});
         }
     } else {
-        res.status(400).json({message : "should select correct category"})
-        await fs.unlink(uploadsPath + req.file.filename, (err) => {
-            if (err) {
-                return res.status(400).json({message: "something went wrong"});
-            };
-            return res.status(400).json({message: "something went wrong"});
-        })
+        await fs.unlinkSync(uploadsPath + req.file.filename)
+        return res.status(400).json({message : "should select correct category"})
     }
     const slug = slugify(name);
     data.slug = slug;
@@ -78,12 +98,7 @@ exports.addProduct = async (req, res, next) => {
     const product = new Product(data)
     const save = await product.save();
     if (!save) {
-        await fs.unlink(uploadsPath + req.file.filename, (err) => {
-            if (err) {
-                return res.status(400).json({message: "something went wrong"});
-            };
-            return res.status(400).json({message: "something went wrong"});
-        })
+        await fs.unlinkSync(uploadsPath + req.file.filename)
         return res.status(500).json({message: "something went wrong"})
     }
     res.status(201).json({message: "product is added successfully"})
