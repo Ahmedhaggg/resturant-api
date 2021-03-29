@@ -6,9 +6,15 @@ let uploadsPath =  __dirname.replace("controller", "uploads") + '\\' ;
 
 exports.getAllproducts = async (req, res, next) => {
     const query = Product.find()
-    query.select("_id name category slug image")
+    query.select("_id name category image")
     const products = await query.exec();
-    products.forEach(product => product.image = process.env.URL+ product.image)
+    products.forEach(product => {
+        product.show = {
+            method: "GET",
+            url: process.env.URL + "api/products/"
+        }
+        product.image = process.env.URL+ product.image
+    })
     if (products.length > 0)
         return res.status(200).json({products})
     if (!products) 
@@ -16,9 +22,32 @@ exports.getAllproducts = async (req, res, next) => {
     if (products.length == 0) 
         return res.status(200).json({message: "There are no products"});
 }
-exports.getProduct = (req, res, next) => {
-    
-    res.status(200).json({slug})
+exports.getProduct = async (req, res, next) => {
+    const id = req.params.id;
+    const product = await Product.findById(id);
+    if (!product) {
+        return res.status(500).json({message: "something went wrong"})
+    }
+    res.status(200).json({
+        id: product.id,
+        name: product.name,
+        category: product.category,
+        image: process.env.URL + product.image,
+        descripition: product.descripition,
+        delete: {
+            method: "DELETE",
+            url: process.env.URL + "api/products/delete",
+            body: { id: product.id }
+        },
+        update: {
+            method: "POST",
+            url: process.env.URL + "api/products/update",
+            body : {
+                id: product.id,
+                data: "you should select it"
+            }
+        }
+    }) 
 }
 
 const checkErr = (expectedErrors, errors) => {

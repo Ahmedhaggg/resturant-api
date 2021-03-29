@@ -5,10 +5,10 @@ const uploader = require('../uploader/adminuploads')
 const guards = require('../middelwares/guards');
 router.get('/', productsController.getAllproducts)
 // router.get('/index', productsController.getProductsIndex)
-router.post('/product/:productname', productsController.getProduct)
+router.get('/product/:productId', productsController.getProduct)
 // router.get('/bestseller', productsController.getBestSeller)
 // router.get('/offers', productsController.getTopRank)
-router.post('/add', guards.isAdmin,
+router.post('/add', 
 uploader.uploadProductImage
 ,
     check("name").not().isEmpty().withMessage("name can't be empty"),
