@@ -35,6 +35,11 @@ exports.getProduct = async (req, res, next) => {
         category: product.category,
         image: process.env.URL + product.image,
         descripition: product.descripition,
+        toppings: product.toppings,
+        defaultTopping: product.defaultTopping,
+        specialsAdditions: product.specialsAdditions,
+        pieces: product.pieces,
+        price: product.price,
         delete: {
             method: "DELETE",
             url: process.env.URL + "api/products/delete",
@@ -126,15 +131,16 @@ exports.addProduct = async (req, res, next) => {
     data.slug = slug;
     data.image = req.file.filename;
     const product = new Product(data)
-    const save = await product.save();
-    if (!save) {
+    try {
+        const save = await product.save();
+        res.status(201).json({message: "product is added successfully"})
+    } catch (error) {
         await fs.unlinkSync(uploadsPath + req.file.filename)
-        return res.status(500).json({message: "something went wrong"})
+        res.status(500).json({message: "something went wrong"})
     }
-    res.status(201).json({message: "product is added successfully"})
 }
 exports.deleteProduct = async (req, res, next) => {
-    const id = req.body.productId;
+    const { id } = req.body;
     const deleteProduct = await Product.findByIdAndDelete(id);
     if (deleteProduct) { 
         await fs.unlinkSync(uploadsPath + deleteProduct.image);
@@ -142,9 +148,53 @@ exports.deleteProduct = async (req, res, next) => {
     }
     res.status(500).json({message: "something went wrong"});
 }
-
-
-
+exports.updateProduct = async (req, res, next) => {
+    const { id , newData } = req.body;
+    console.log(id);
+    const update = await Product.findByIdAndUpdate(id, newData, {new: true});
+    console.log(update);
+    if (update) {
+        return res.status(200).json({
+            id: update.id,
+            name: update.name,
+            category: update.category,
+            image: process.env.URL + update.image,
+            descripition: update.descripition,
+            toppings: update.toppings,
+            defaultTopping: update.defaultTopping,
+            specialsAdditions: update.specialsAdditions,
+            pieces: update.pieces,
+            price: update.price,
+        })
+    } 
+    res.status(500).json({message: "Something went wrong"})
+}
+exports.updateProductImage = async (req, res, next) => {
+    const image = req.file.filename;
+    if (!image) {
+        return res.status(400).json({message: "you should select an image"})
+    }
+    const id  = req.body.id; 
+    await Product.findById(id, async (err, doc) => {
+        if (err) {
+            await fs.unlink(uploadsPath + image, err => {
+                if (err) {
+                    return res.status(500).json({message: "something went wrong"})
+                } 
+                return res.status(400).json({message: "something went wrong"})
+            });
+        } else {
+            try {
+                const update = await Product.findByIdAndUpdate(id, {image}, {new: true})
+                await fs.unlinkSync(uploadsPath + product.image);
+                res.status(200).json({message: "product image is updated successfully"})
+            } catch (error) {
+                res.status(400).json({message: "something went wrong"})
+            }
+        }
+    });
+    
+}
 
 /*
 let pizza = () => {

@@ -3,6 +3,8 @@ const mongoose = require('mongoose');
 const prodcutSchema = mongoose.Schema({
     name: {
         type: String,
+        index: true,
+        unique: true,
         required: true
     },
     slug: {

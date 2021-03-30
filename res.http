@@ -1,0 +1,26 @@
+############# get all products ##########
+GET http://localhost:3000/api/products/
+
+######## get product #########
+GET http://localhost:3000/api/products/product/60617922c0603f0c482e305d
+
+######## update product ########
+
+PUT http://localhost:3000/api/products/update
+Content-Type: application/json
+
+{
+    "id": "60617922c0603f0c482e305d",
+    "newData": {
+        "price": 400
+    }
+}
+
+######## delete product ######
+DELETE  http://localhost:3000/api/products/delete
+Content-Type: application/json
+
+{
+    "id": "6063a37e4dd49c0a58be06ae"
+}
+

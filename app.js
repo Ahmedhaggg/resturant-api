@@ -15,8 +15,18 @@ env.config();
 // mongobb connection
 const mongooseOption = {
     useNewUrlParser: true ,
-    useUnifiedTopology: true 
+    useUnifiedTopology: true,
+    useFindAndModify: false,
+    useCreateIndex: true
 }
+// mongoose.connect(`mongodb+srv://01116748280m:01116748280m@cluster0.raph6.mongodb.net/resturant?retryWrites=true&w=majority`, mongooseOption, (err) => {
+//     if (err) {
+//         console.log(err)
+//     } else {
+//         console.log("mongoose connected")
+//     }
+// })
+
 mongoose.connect(`mongodb+srv://travels:AhmedHaggag@12345@cluster0.u5klm.mongodb.net/resturant?retryWrites=true&w=majority`,mongooseOption, (err) => {
     if (err) 
         console.log(err)

@@ -19,6 +19,6 @@ exports.uploadProductImage =  multer({
         limits: {
             fieldSize: 1024 * 1024 * 5
         }
-    }).single("image")
+}).single("image")
 
 

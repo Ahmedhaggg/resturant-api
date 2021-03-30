@@ -140,6 +140,11 @@ if (500)
     "category": "pasta",
     "image": "http://localhost:3000/161700073843668747470733a2f2f6d69726f2e6d656469756d2e636f6d2f6d61782f3637382f312a6471766c61737a524c766f506d4152704f6c4c4e39412e706e67.png",
     "descripition": "this is pasta dghdjdold",
+    toppings: product.toppings,
+    defaultTopping: product.defaultTopping,
+    specialsAdditions: product.specialsAdditions,
+    pieces: product.pieces,
+    price: product.price,
     "delete": {
         "method": "DELETE",
         "url": "http://localhost:3000/api/products/delete",
