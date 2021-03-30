@@ -11,7 +11,7 @@ exports.getAllproducts = async (req, res, next) => {
     products.forEach(product => {
         product.show = {
             method: "GET",
-            url: process.env.URL + "api/products/"
+            url: process.env.URL + "api/products/" + product.id
         }
         product.image = process.env.URL+ product.image
     })
@@ -23,7 +23,8 @@ exports.getAllproducts = async (req, res, next) => {
         return res.status(200).json({message: "There are no products"});
 }
 exports.getProduct = async (req, res, next) => {
-    const id = req.params.id;
+    const id = req.params.productId;
+    console.log(id)
     const product = await Product.findById(id);
     if (!product) {
         return res.status(500).json({message: "something went wrong"})
@@ -132,7 +133,15 @@ exports.addProduct = async (req, res, next) => {
     }
     res.status(201).json({message: "product is added successfully"})
 }
-
+exports.deleteProduct = async (req, res, next) => {
+    const id = req.body.productId;
+    const deleteProduct = await Product.findByIdAndDelete(id);
+    if (deleteProduct) { 
+        await fs.unlinkSync(uploadsPath + deleteProduct.image);
+        return res.status(200).json({message: "product is deleted successfully"})
+    }
+    res.status(500).json({message: "something went wrong"});
+}
 
 
 

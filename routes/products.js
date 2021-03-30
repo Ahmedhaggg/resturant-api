@@ -20,7 +20,7 @@ uploader.uploadProductImage
     check("price").not().isEmpty().withMessage("name can't be empty"),
     check("defaultTopping").not().isEmpty().withMessage("can't add this product without default topping")
 ,productsController.addProduct)
-// router.delete('/delete', productsController.deleteProduct)
+router.delete('/delete', productsController.deleteProduct)
 // router.put('/update', productsController.updateProduct)
 
 

@@ -125,3 +125,54 @@ product.show = {
 }
 product.image 
 }
+
+
+##########################
+to get product admin page
+url: localhost:3000/api/products/product/:productId
+method: "GET",
+response: 
+if (500) 
+  {message: "something went wrong"}
+{
+    "id": "60617922c0603f0c482e305d",
+    "name": "pastak",
+    "category": "pasta",
+    "image": "http://localhost:3000/161700073843668747470733a2f2f6d69726f2e6d656469756d2e636f6d2f6d61782f3637382f312a6471766c61737a524c766f506d4152704f6c4c4e39412e706e67.png",
+    "descripition": "this is pasta dghdjdold",
+    "delete": {
+        "method": "DELETE",
+        "url": "http://localhost:3000/api/products/delete",
+        "body": {
+            "id": "60617922c0603f0c482e305d"
+        }
+    },
+    "update": {
+        "method": "POST",
+        "url": "http://localhost:3000/api/products/update",
+        "body": {
+            "id": "60617922c0603f0c482e305d",
+            "data": "you should select it"
+        }
+    }
+}
+
+
+##########
+to delete product 
+url: http://localhost:3000/api/products/delete
+method: DELETE
+body: productId
+response : 
+if (200) 
+{message: product is deleted succcessfully}
+else 500
+{message: something went wrong}
+
+
+
+
+
+
+
+
