@@ -3,6 +3,8 @@ const mongoose = require('mongoose');
 const env = require('dotenv');
 const cors = require('cors')
 const path = require('path')
+const swaggerUi = require('swagger-ui-express');
+const swaggerDocument = require('./swagger.json');
 
 const app = express();
 app.use(express.urlencoded({extended: false}))
@@ -48,6 +50,7 @@ app.post('/test', (req, res, next) => {
     const verify =  jwt.verify(req.headers['authorization'], "secrettttt is")
     res.status(200).json({verify});
 })
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use('/api/', authRouter)
 app.use('/api/products/', productsRouter)
 app.listen(3000, () => console.log("server is running"))

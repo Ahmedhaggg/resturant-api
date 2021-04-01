@@ -8,7 +8,7 @@ let uploadsPath =  __dirname.replace("controller", "uploads") + '\\' ;
 exports.getAllproducts = async (req, res, next) => {
     const query = Product.find()
     query.select("_id name category image")
-    const products = await query.exec();
+    let products = await query.exec();
     products = products.map(product => {
         return {
             id: product._id,
@@ -69,11 +69,21 @@ exports.addProduct = async (req, res, next) => {
     }
     const {name, descripition, category , sizes, toppings, pieces , specialsAdditions, price} = req.body;
    
-    const slug = slugify(name);
-    data.slug = slug;
-    data.image = req.file.filename;
+    let slug = slugify(name);
+    let productData = {
+        name,
+        descripition,
+        category ,
+        sizes, 
+        toppings,
+        pieces , 
+        specialsAdditions, 
+        price,
+        slug,
+        image: req.file.filename 
+    }
     try {
-        const product = new Product(data)
+        const product = new Product(productData)
         const save = await product.save();
         const checkProductCategory = await Category.findOne({name: save.category});
         if (checkProductCategory) {

@@ -1,16 +1,17 @@
 ############# get all products ##########
 GET http://localhost:3000/api/products/
-
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDY1YjllYzFkMWMwYjBhMjA1YTk3NjkiLCJlbWFpbCI6ImFkbWluQGdtYWlsLmNvbSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTYxNzI4MDI3NywiZXhwIjoxNjE3NTM5NDc3fQ.Z0Tbc7R8tzAl6_I-_3An19rzoRCZwp0-eZVqeFOmfXs
 ######## get product #########
-GET http://localhost:3000/api/products/product/60617922c0603f0c482e305d
+GET http://localhost:3000/api/products/product/6065be252cc9b504a4df88ab
 
 ######## update product ########
 
 PUT http://localhost:3000/api/products/update
 Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDY1YjllYzFkMWMwYjBhMjA1YTk3NjkiLCJlbWFpbCI6ImFkbWluQGdtYWlsLmNvbSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTYxNzI4MDI3NywiZXhwIjoxNjE3NTM5NDc3fQ.Z0Tbc7R8tzAl6_I-_3An19rzoRCZwp0-eZVqeFOmfXs
 
 {
-    "id": "60617922c0603f0c482e305d",
+    "id": "6065be252cc9b504a4df88ab",
     "newData": {
         "price": 400
     }
@@ -19,8 +20,10 @@ Content-Type: application/json
 ######## delete product ######
 DELETE  http://localhost:3000/api/products/delete
 Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDY1YjllYzFkMWMwYjBhMjA1YTk3NjkiLCJlbWFpbCI6ImFkbWluQGdtYWlsLmNvbSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTYxNzI4MDI3NywiZXhwIjoxNjE3NTM5NDc3fQ.Z0Tbc7R8tzAl6_I-_3An19rzoRCZwp0-eZVqeFOmfXs
 
 {
-    "id": "6063a5887ce58d1260138aab"
+    "id": "6065be252cc9b504a4df88ab"
 }
+
 

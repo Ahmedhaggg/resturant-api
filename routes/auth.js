@@ -22,4 +22,17 @@ router.post('/signup',
         return true;
       })
 , isValid ,userController.signup)
+router.post('/admin/signup', 
+    check("firstName").not().isEmpty().withMessage("Can't be Empty"),
+    check("lastName").not().isEmpty().withMessage("Can't be Empty"),
+    check("email").not().isEmpty().withMessage("Can't be Empty"),
+    check("phoneNumber").not().isEmpty().withMessage("Can't be Empty"),
+    check("password").not().isEmpty().withMessage("Can't be Empty"),
+    check("confirmPassword").custom((value, { req }) => {
+        if (value !== req.body.password) {
+          throw new Error('Password confirmation does not match password');
+        }
+        return true;
+      })
+, isValid ,userController.adminSignup)
 module.exports = router;

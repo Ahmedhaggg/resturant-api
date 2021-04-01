@@ -5,6 +5,7 @@ let uploadsPath =  __dirname.replace("controller", "uploads") + '\\' ;
 const isValid = (req, res, next) => {
 
     if (validationResult(req).array().length > 0) {
+        console.log(req.file.filename)
         if (req.file.filename) {
             fs.unlinkSync(uploadsPath + req.file.filename)
         } 
