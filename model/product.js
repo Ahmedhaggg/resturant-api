@@ -40,9 +40,6 @@ const prodcutSchema = mongoose.Schema({
                 ]
             }
         ]
-    },
-    defaultTopping: {
-        type: []
     }
     ,
     specialsAdditions: {
@@ -61,7 +58,7 @@ const prodcutSchema = mongoose.Schema({
     pieces: {
         type: [
             {
-                pieces: String,
+                pieces: Number,
                 price: Number
             }
         ]
@@ -71,7 +68,7 @@ const prodcutSchema = mongoose.Schema({
         type: String,
         required: true
     }
-})
+}, { timestamps: true })
 
 const Product = mongoose.model('product', prodcutSchema);
 

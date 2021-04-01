@@ -21,6 +21,6 @@ DELETE  http://localhost:3000/api/products/delete
 Content-Type: application/json
 
 {
-    "id": "6063a37e4dd49c0a58be06ae"
+    "id": "6063a5887ce58d1260138aab"
 }
 

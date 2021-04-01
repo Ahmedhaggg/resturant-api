@@ -39,12 +39,14 @@ const authRouter = require('./routes/auth')
 const productsRouter = require('./routes/products')
 
 // using routes
+const jwt = require('jsonwebtoken');
 app.post('/', (req, res, next) => {
-    () => {
-        return res.status(200).json({message: "first"});
-        
-    }
-    return res.status(200).json({message: "second"});
+    const token = jwt.sign({name: "ahmed"}, "secrettttt is", {expiresIn: 60 * 60});
+    res.status(200).json({token})
+})
+app.post('/test', (req, res, next) => {
+    const verify =  jwt.verify(req.headers['authorization'], "secrettttt is")
+    res.status(200).json({verify});
 })
 app.use('/api/', authRouter)
 app.use('/api/products/', productsRouter)

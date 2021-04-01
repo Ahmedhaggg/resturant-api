@@ -1,22 +1,23 @@
 const jwt = require('jsonwebtoken');
 
-exports.isAdmin = async (req, res, next) => {
-    let token = req.headers.authorization
+exports.isAdmin =  (req, res, next) => {
     try {
-        const verify = await jwt.verify(token, process.env.JWTSECRET);
+        var token = req.headers['authorization'];
+        const verify =  jwt.verify(token, process.env.JWTSECRET, { expiresIn: '7d' });
+        console.log(verify)
         if (verify.role == "admin") 
             next();
         else 
             res.status(400).json({message: "you aren't admin"});
     } catch (err) {
-        res.status(400).json({message: "you should sign in first"});
+        res.status(400).json({message: err});
     }
 }
 
-exports.isUser = async (req, res, next) => {
+exports.isUser =  (req, res, next) => {
     let token = req.headers.authorization;
     try {
-        const verify = await jwt.verify(token, process.env.JWTSECRET);
+        const verify =  jwt.verify(token, process.env.JWTSECRET);
         req.email = verify.email;
         req._id = verify._id;
         next();
