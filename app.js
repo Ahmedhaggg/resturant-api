@@ -39,18 +39,10 @@ mongoose.connect(`mongodb+srv://travels:AhmedHaggag@12345@cluster0.u5klm.mongodb
 // import routes
 const authRouter = require('./routes/auth')
 const productsRouter = require('./routes/products')
-
+const categoriesRouter = require('./routes/category')
 // using routes
-const jwt = require('jsonwebtoken');
-app.post('/', (req, res, next) => {
-    const token = jwt.sign({name: "ahmed"}, "secrettttt is", {expiresIn: 60 * 60});
-    res.status(200).json({token})
-})
-app.post('/test', (req, res, next) => {
-    const verify =  jwt.verify(req.headers['authorization'], "secrettttt is")
-    res.status(200).json({verify});
-})
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use('/api/', authRouter)
 app.use('/api/products/', productsRouter)
+app.use('/api/categories/', categoriesRouter)
 app.listen(3000, () => console.log("server is running"))

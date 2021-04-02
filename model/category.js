@@ -6,9 +6,16 @@ const categorySchema = mongoose.Schema({
         required: true,
         unique: [true, "there are category with this name"]
     },
+    slug: {
+        type: String, 
+        required: true
+    },
     products: {
         type: [
-            mongoose.Types.ObjectId,
+            {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: "product"
+            }
         ],
         default: []
     }

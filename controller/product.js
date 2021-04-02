@@ -67,8 +67,9 @@ exports.addProduct = async (req, res, next) => {
     if (!req.file) {
         return res.status(400).json({message: "you should select file"});
     }
-    const {name, descripition, category , sizes, toppings, pieces , specialsAdditions, price} = req.body;
-   
+    let {name, descripition, category , sizes, toppings, pieces , specialsAdditions, price} = req.body;
+    sizes = JSON.parse(sizes);
+
     let slug = slugify(name);
     let productData = {
         name,
@@ -91,7 +92,8 @@ exports.addProduct = async (req, res, next) => {
         } else {
             const newCategoryData = {
                 name: category,
-                products: [save._id]
+                products: [save._id],
+                slug: slugify(category)
             }
             const newCategory = new Category(newCategoryData);
             await newCategory.save();
@@ -107,7 +109,7 @@ exports.deleteProduct = async (req, res, next) => {
     const { id } = req.body;
     const deleteProduct = await Product.findByIdAndDelete(id);
     if (deleteProduct) { 
-        await fs.unlinkSync(uploadsPath + deleteProduct.image);
+        fs.unlinkSync(uploadsPath + deleteProduct.image);
         return res.status(200).json({message: "product is deleted successfully"})
     }
     res.status(500).json({message: "something went wrong"});
