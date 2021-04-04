@@ -4,10 +4,6 @@ const guards = require('../middelwares/guards');
 router.get('/', categoryController.getAllCategories)
 router.get('/names', categoryController.getCategoriesNames)
 router.get('/get/:categoryid', categoryController.getCategoryById)
-router.put('/update/:categoryid', categoryController.updateCategoryName)
-router.delete('/delete/:categoryid', 
-    categoryController.deleteCategory
-)
-
-
+router.put('/update/:categoryid', guards.isAdmin, categoryController.updateCategoryName)
+router.delete('/delete/:categoryid', guards.isAdmin, categoryController.deleteCategory)
 module.exports =  router;

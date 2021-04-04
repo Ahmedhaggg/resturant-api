@@ -1,6 +1,13 @@
 const Category = require('../model/category');
 const slugify  = require('slugify');
 const Product = require('../model/product');
+const fs = require('fs');
+let uploadsPath =  __dirname.replace("controller", "uploads") + '\\' ;
+
+
+
+
+
 exports.getAllCategories = async (req, res, next) => {    
     let categories = await Category.find().populate('products');
     if (categories.length > 0){
@@ -67,17 +74,19 @@ exports.updateCategoryName = async (req, res ,next) => {
 }
 exports.deleteCategory = async (req, res, next) => {
     const id = req.params.categoryid
-    console.log(id)
     if (!id) {
         return res.status(400).json({message: "you can't delete category without id"})
     }
     try {
-        const deleteCategory = await Category.findByIdAndDelete(id, {new: false})
+        const deleteCategory = await Category.findByIdAndDelete(id)
         if (deleteCategory) {
-            const deleteProducts = await Category.deleteMany(
-                {_id: {$in: deleteCategory.products}}
-            )
-            if (deleteCategory && deleteProducts) {
+            const products = await Product.find(
+                {_id: {$in: deleteCategory.products}}).select("image").exec();
+            const deleteProducts = await Product.deleteMany(
+                {_id: {$in: deleteCategory.products}})
+            
+            if (products && deleteProducts) {
+                products.forEach(product => fs.unlinkSync(uploadsPath + product.image))
                 return  res.status(200).json({message: "All product of this category deleted successfully"})
             }
             res.status(500).json({message: "something went wrong"})

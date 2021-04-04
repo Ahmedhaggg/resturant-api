@@ -23,7 +23,7 @@ Content-Type: application/json
 Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDY1YjllYzFkMWMwYjBhMjA1YTk3NjkiLCJlbWFpbCI6ImFkbWluQGdtYWlsLmNvbSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTYxNzI4MDI3NywiZXhwIjoxNjE3NTM5NDc3fQ.Z0Tbc7R8tzAl6_I-_3An19rzoRCZwp0-eZVqeFOmfXs
 
 {
-    "id": "606656c06486d31554057bf3"
+    "id": "60684e23a2f6ce13e0e7f19e"
 }
 
 ################ get all categories categories
@@ -33,7 +33,7 @@ GET http://localhost:3000/api/categories/
 GET http://localhost:3000/api/categories/names
 
 ######### get category by id
-GET http://localhost:3000/api/categories/get/606656b26486d31554057bf1
+GET http://localhost:3000/api/categories/get/60684953697ea511ecb982db
 
 
 ######## update Category
@@ -43,3 +43,6 @@ Content-Type: application/json
 {
     "name": "new product"
 }
+
+##### delete category and all products in this category
+DELETE  http://localhost:3000/api/categories/delete/60684e97a2f6ce13e0e7f1a0

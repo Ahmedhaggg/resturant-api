@@ -2,7 +2,6 @@ const Product = require('../model/product');
 const slugify = require('slugify')
 const fs = require('fs')
 const Category = require('../model/category');
-const mongoose = require('mongoose');
 let uploadsPath =  __dirname.replace("controller", "uploads") + '\\' ;
 
 exports.getAllproducts = async (req, res, next) => {
@@ -68,7 +67,6 @@ exports.addProduct = async (req, res, next) => {
         return res.status(400).json({message: "you should select file"});
     }
     let {name, descripition, category , sizes, toppings, pieces , specialsAdditions, price} = req.body;
-    sizes = JSON.parse(sizes);
 
     let slug = slugify(name);
     let productData = {
@@ -101,7 +99,7 @@ exports.addProduct = async (req, res, next) => {
         res.status(201).json({message: "product is added successfully"})
         
     } catch (error) {
-        await fs.unlinkSync(uploadsPath + req.file.filename)
+        await fs.unlink(uploadsPath + req.file.filename)
         res.status(500).json({message: "something went wrong"})
     }
 }
@@ -109,8 +107,12 @@ exports.deleteProduct = async (req, res, next) => {
     const { id } = req.body;
     const deleteProduct = await Product.findByIdAndDelete(id);
     if (deleteProduct) { 
-        fs.unlinkSync(uploadsPath + deleteProduct.image);
-        return res.status(200).json({message: "product is deleted successfully"})
+        return fs.unlink(uploadsPath + deleteProduct.image, (err)=> {
+            if (err) {
+                return res.status(400).json({message: "cant delete the file of product, but product is deleted"});
+            }
+            return  res.status(200).json({message: "product is deleted successfully"});
+        });
     }
     res.status(500).json({message: "something went wrong"});
 }
