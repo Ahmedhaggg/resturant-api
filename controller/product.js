@@ -86,7 +86,7 @@ exports.addProduct = async (req, res, next) => {
         const save = await product.save();
         const checkProductCategory = await Category.findOne({name: save.category});
         if (checkProductCategory) {
-            await Category.findByIdAndUpdate(checkProductCategory._id, {$addToSet: {products: save._id}}, {new: false})
+            const updateCategory = await Category.findByIdAndUpdate(checkProductCategory._id, {$addToSet: {products: save._id}}, {new: false})
         } else {
             const newCategoryData = {
                 name: category,
@@ -96,22 +96,38 @@ exports.addProduct = async (req, res, next) => {
             const newCategory = new Category(newCategoryData);
             await newCategory.save();
         }
-        res.status(201).json({message: "product is added successfully"})
+        res.status(201).json({
+            message: "product is added successfully",
+            id: save.id,
+            name: save.name,
+            category: save.category,
+            image: process.env.URL + save.image,
+            descripition: save.descripition,
+            toppings: save.toppings,
+            sizes: save.sizes,
+            specialsAdditions: save.specialsAdditions,
+            pieces: save.pieces,
+            price: save.price,
+        })
         
     } catch (error) {
-        await fs.unlink(uploadsPath + req.file.filename)
-        res.status(500).json({message: "something went wrong"})
+        fs.unlinkSync(uploadsPath + req.file.filename)
+        if (error.index) {
+            res.status(400).json({message: "there are product with this name"})
+        } else {
+            res.status(500).json({message: "something went wrong"})
+        }
     }
 }
 exports.deleteProduct = async (req, res, next) => {
     const { id } = req.body;
     const deleteProduct = await Product.findByIdAndDelete(id);
     if (deleteProduct) { 
-        return fs.unlink(uploadsPath + deleteProduct.image, (err)=> {
-            if (err) {
-                return res.status(400).json({message: "cant delete the file of product, but product is deleted"});
-            }
-            return  res.status(200).json({message: "product is deleted successfully"});
+        return fs.unlink(uploadsPath + deleteProduct.image, (err)=> {  
+            if (err) 
+                res.status(500).json({message: "something went wrong"})
+            else 
+                res.status(500).json({message: "product is deleted successfully"})
         });
     }
     res.status(500).json({message: "something went wrong"});
@@ -119,18 +135,19 @@ exports.deleteProduct = async (req, res, next) => {
 exports.updateProduct = async (req, res, next) => {
     const { id , newData } = req.body;
     if (!id) {
-        return res.status(400).json({message: "ca"})
+        return res.status(400).json({message: "can't update product without id"})
     }
     await Product.findByIdAndUpdate(id, newData, {new: true}, (err, update) => {
         if (update) {
             return res.status(200).json({
+                message: "product is updated successfully",
                 id: update.id,
                 name: update.name,
                 category: update.category,
                 image: process.env.URL + update.image,
                 descripition: update.descripition,
                 toppings: update.toppings,
-                defaultTopping: update.defaultTopping,
+                sizes: update.sizes,
                 specialsAdditions: update.specialsAdditions,
                 pieces: update.pieces,
                 price: update.price,
@@ -146,93 +163,23 @@ exports.updateProductImage = async (req, res, next) => {
         return res.status(400).json({message: "you should select an image"})
     }
     const id  = req.body.id; 
-    console.log(req.body.id + " " + image)
     if (!id) {
+        fs.unlinkSync(uploadsPath + image)
         return res.status(400).json({message: "can't update product with this image"})
     }
-    await Product.findById(id, async (err, doc) => {
-        if (err) {
-            await fs.unlink(uploadsPath + image, err => {
-                if (err) {
-                    return res.status(500).json({message: "something went wrong"})
-                } 
-                return res.status(400).json({message: "something went wrong"})
-            });
-        } else {
-            try {
-                const update = await Product.findByIdAndUpdate(id, {image}, {new: true})
-                console.log(update)
-                fs.unlinkSync(uploadsPath + doc.image);
-                res.status(200).json({message: "product image is updated successfully"})
-            } catch (error) {
-                res.status(400).json({message: error})
-            }
-        }
-    });
-    
+    try {
+        const product = await Product.findByIdAndUpdate(id, {image}, {new: false});
+        fs.unlinkSync(uploadsPath + product.image);
+        res.status(200).json({
+            message: "product image is updated",
+            newImage: process.env.URL + image
+        })
+    } catch (error) {
+        fs.unlinkSync(uploadsPath + image);
+        res.status(500).json({message: "something went wrong"})
+    }  
 }
 
-/*
-let pizza = () => {
-    return {
-        add = data => {
-
-        } 
-    }
-} 
-let drink = () => {
-    return {
-        add = data => {
-            
-        } 
-    }
-} 
-let salads = () => {
-    return {
-        add = data => {
-            
-        } 
-    }
-} 
-let desert = () => {
-    return {
-        add = data => {
-            
-        } 
-    }
-} 
-let starters = () => {
-    return {
-        add = data => {
-            
-        } 
-    }
-} 
-let pasta = () => {
-    return {
-        add = data => {
-            
-        } 
-    }
-} 
-const product = category => {
-        switch (category) {
-            case "pizza":
-                return pizza();
-            case "drink": 
-                return drink();
-            case "salads":
-                return salads();
-            case "desert": 
-                return desert();
-            case "starters": 
-                return starters();
-            case "pasta": 
-                return pasta();
-        }
-}
-
-*/
 
 
 

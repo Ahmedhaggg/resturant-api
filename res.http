@@ -1,6 +1,6 @@
 ############# get all products ##########
 GET http://localhost:3000/api/products/
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDY1YjllYzFkMWMwYjBhMjA1YTk3NjkiLCJlbWFpbCI6ImFkbWluQGdtYWlsLmNvbSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTYxNzI4MDI3NywiZXhwIjoxNjE3NTM5NDc3fQ.Z0Tbc7R8tzAl6_I-_3An19rzoRCZwp0-eZVqeFOmfXs
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDY1YjllYzFkMWMwYjBhMjA1YTk3NjkiLCJlbWFpbCI6ImFkbWluQGdtYWlsLmNvbSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTYxODAwNDk0NiwiZXhwIjoxNjE4MjY0MTQ2fQ.zaGAWU1j7rQ1qxatjaQk287QDfZCI7g0z7IPZIUbh60
 ######## get product #########
 GET http://localhost:3000/api/products/product/6065be252cc9b504a4df88ab
 
@@ -8,22 +8,22 @@ GET http://localhost:3000/api/products/product/6065be252cc9b504a4df88ab
 
 PUT http://localhost:3000/api/products/update
 Content-Type: application/json
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDY1YjllYzFkMWMwYjBhMjA1YTk3NjkiLCJlbWFpbCI6ImFkbWluQGdtYWlsLmNvbSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTYxNzI4MDI3NywiZXhwIjoxNjE3NTM5NDc3fQ.Z0Tbc7R8tzAl6_I-_3An19rzoRCZwp0-eZVqeFOmfXs
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDY1YjllYzFkMWMwYjBhMjA1YTk3NjkiLCJlbWFpbCI6ImFkbWluQGdtYWlsLmNvbSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTYxODAwNDk0NiwiZXhwIjoxNjE4MjY0MTQ2fQ.zaGAWU1j7rQ1qxatjaQk287QDfZCI7g0z7IPZIUbh60
 
 {
-    "id": "6065be252cc9b504a4df88ab",
+    "id": "6070d6a1eaa262056807ce36",
     "newData": {
-        "price": 400
+        "name": "d"
     }
 }
 
 ######## delete product ######60664df75aed0107fc13d354
 DELETE  http://localhost:3000/api/products/delete
 Content-Type: application/json
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDY1YjllYzFkMWMwYjBhMjA1YTk3NjkiLCJlbWFpbCI6ImFkbWluQGdtYWlsLmNvbSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTYxNzI4MDI3NywiZXhwIjoxNjE3NTM5NDc3fQ.Z0Tbc7R8tzAl6_I-_3An19rzoRCZwp0-eZVqeFOmfXs
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDY1YjllYzFkMWMwYjBhMjA1YTk3NjkiLCJlbWFpbCI6ImFkbWluQGdtYWlsLmNvbSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTYxODAwNDk0NiwiZXhwIjoxNjE4MjY0MTQ2fQ.zaGAWU1j7rQ1qxatjaQk287QDfZCI7g0z7IPZIUbh60
 
 {
-    "id": "60684e23a2f6ce13e0e7f19e"
+    "id": "6070d18bbcd2b8139072f71e"
 }
 
 ################ get all categories categories
@@ -37,12 +37,14 @@ GET http://localhost:3000/api/categories/get/60684953697ea511ecb982db
 
 
 ######## update Category
-PUT http://localhost:3000/api/categories/update/606656b26486d31554057bf1
+PUT http://localhost:3000/api/categories/update/6070cc7061df571734ae2404
 Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDY1YjllYzFkMWMwYjBhMjA1YTk3NjkiLCJlbWFpbCI6ImFkbWluQGdtYWlsLmNvbSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTYxODAwNDk0NiwiZXhwIjoxNjE4MjY0MTQ2fQ.zaGAWU1j7rQ1qxatjaQk287QDfZCI7g0z7IPZIUbh60
 
 {
     "name": "new product"
 }
 
 ##### delete category and all products in this category
-DELETE  http://localhost:3000/api/categories/delete/60684e97a2f6ce13e0e7f1a0
+DELETE  http://localhost:3000/api/categories/delete/6070cc7061df571734ae2404
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDY1YjllYzFkMWMwYjBhMjA1YTk3NjkiLCJlbWFpbCI6ImFkbWluQGdtYWlsLmNvbSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTYxODAwNDk0NiwiZXhwIjoxNjE4MjY0MTQ2fQ.zaGAWU1j7rQ1qxatjaQk287QDfZCI7g0z7IPZIUbh60

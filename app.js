@@ -40,9 +40,11 @@ mongoose.connect(`mongodb+srv://travels:AhmedHaggag@12345@cluster0.u5klm.mongodb
 const authRouter = require('./routes/auth')
 const productsRouter = require('./routes/products')
 const categoriesRouter = require('./routes/category')
+const orderRouter = require('./routes/order')
 // using routes
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use('/api/', authRouter)
 app.use('/api/products/', productsRouter)
 app.use('/api/categories/', categoriesRouter)
+app.use('/api/orders/', orderRouter)
 app.listen(3000, () => console.log("server is running"))

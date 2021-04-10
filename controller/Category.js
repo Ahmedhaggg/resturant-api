@@ -49,7 +49,6 @@ exports.getCategoryById = async (req, res, next) => {
 exports.updateCategoryName = async (req, res ,next) => {
     let {name} = req.body;
     const id = req.params.categoryid;
-    console.log(id)
     if (!id) {
         return res.status(400).json({message: "can't update category without id"})
     }
@@ -65,9 +64,7 @@ exports.updateCategoryName = async (req, res ,next) => {
                 {category: name},
                 {new: true}
             )
-        res.status(200).json({
-            updateCategoryNameInProducts
-        })
+        res.status(200).json({message: "updated product is successfully"})
     } catch (err) {
         res.status(500).json({message: "somethin went wrong"})
     }
