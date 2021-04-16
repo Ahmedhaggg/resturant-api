@@ -1,6 +1,14 @@
+#####signin ######
+POST http://localhost:3000/api/signin
+Content-Type: application/json
+
+{
+    "email": "admin@gmail.com",
+    "password": "AhmedHaggag@12345"
+}
 ############# get all products ##########
 GET http://localhost:3000/api/products/
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDY1YjllYzFkMWMwYjBhMjA1YTk3NjkiLCJlbWFpbCI6ImFkbWluQGdtYWlsLmNvbSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTYxODAwNDk0NiwiZXhwIjoxNjE4MjY0MTQ2fQ.zaGAWU1j7rQ1qxatjaQk287QDfZCI7g0z7IPZIUbh60
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDY1YjllYzFkMWMwYjBhMjA1YTk3NjkiLCJlbWFpbCI6ImFkbWluQGdtYWlsLmNvbSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTYxODIyNjUzMiwiZXhwIjoxNjE4NDg1NzMyfQ.tPVI--BIoDb_XiWv8LpeHAjKd4xBaIQYlLNU9OmrEfc
 ######## get product #########
 GET http://localhost:3000/api/products/product/6065be252cc9b504a4df88ab
 
@@ -48,3 +56,63 @@ Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDY1YjllYzFkMWMw
 ##### delete category and all products in this category
 DELETE  http://localhost:3000/api/categories/delete/6070cc7061df571734ae2404
 Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDY1YjllYzFkMWMwYjBhMjA1YTk3NjkiLCJlbWFpbCI6ImFkbWluQGdtYWlsLmNvbSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTYxODAwNDk0NiwiZXhwIjoxNjE4MjY0MTQ2fQ.zaGAWU1j7rQ1qxatjaQk287QDfZCI7g0z7IPZIUbh60
+
+####### start orders 
+
+###### add order ##########
+POST  http://localhost:3000/api/orders/add
+Content-Type: application/json
+
+{
+    "token": "tok_1IgKHkDHNiYh4mtDyLIonend", 
+    "products": [
+        
+        {
+            "product": "60743746ca03db136ca30eae", 
+            "quantity": 2, 
+            "toppings": [
+                {"topping": "olive", "quantity": "with" } 
+            ],
+            "specialAdditions": [
+                {"addition": "chickens", "quantity": "with" } 
+            ],
+            "size": "meduim",
+            "pieces": "6",
+            "price": 20
+        }  
+    ],
+    "adress": {
+        "city": "beba",
+        "zone": "beni madi",
+        "house": "about el masjed el kebeer"
+    },
+    "amount": 72.12, 
+    "userId": "600963fcf792a011c87613a3", 
+    "recieve": "pick up" , 
+    "email": "ahmedhaggagrady@gmail.com",
+    "phone": "01014223925"
+}
+
+# token is from stripe
+# quantity toppings or specialAdditions is [with or plus]
+# userid is not reauired
+# recieve is [ pick up or delivery]
+
+
+####### remote adress #########
+POST http://localhost:3000/adress
+
+
+
+########## create #####
+POST http://localhost:3000/creat
+
+######### put ####
+PUT http://localhost:3000/put
+
+
+######### get #####
+post http://localhost:3000/get
+
+##### delete
+DELETE  http://localhost:3000/delete

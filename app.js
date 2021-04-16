@@ -42,6 +42,64 @@ const productsRouter = require('./routes/products')
 const categoriesRouter = require('./routes/category')
 const orderRouter = require('./routes/order')
 // using routes
+
+const mongooseSchema = mongoose.Schema({
+    name: {
+        type: String,
+        required: true,
+        unique: true,
+        index: true
+    },
+    age: {
+        type: String,
+        required: true
+    }
+})
+const Person = mongoose.model("person", mongooseSchema)
+app.post('/creat', async (req, res, next) => {
+    try {
+        let newPerson = new Person({name: "ahmed", age: 20})
+        let save = await newPerson.save()
+        
+            console.log("save")
+            console.log(save)
+    } catch (error) {
+        console.log("from catch")
+        console.log(error)
+    }
+})
+app.post('/get', async (req, res) => {
+    try {
+        let update = await Person.find({id: "60786f6v88b28d011b4fc0649"})
+        if (update) {
+            console.log(update)
+            console.log("from update")
+        } else {
+            console.log("no update")
+        }
+    } catch (error) {
+        console.log("from catch")
+    }
+})
+app.put('/put', async (req, res) => {
+    try {
+        let update = await Person.findByIdAndUpdate("60786f688b28d011b4fc0648", {name: "ali"}, {new: true})
+        if (update) {
+            console.log(update)
+            console.log("from update")
+        } else {
+            console.log("no update")
+            console.log(update)
+        }
+    } catch (error) {
+        console.log("from catch")
+    }
+})
+app.delete('/delete', async (req, res) => {
+    
+    let deleteing = await Person.deleteMany();
+    console.log(deleteing)
+})
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use('/api/', authRouter)
 app.use('/api/products/', productsRouter)

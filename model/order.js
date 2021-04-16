@@ -7,21 +7,27 @@ const orderSchema = mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "user"
     },
-    products: [
-        {
-            product: {
-                type: mongoose.Types.ObjectId
-            },
-            quantity: {
-                type: Number
+    ip: {
+        type: String,
+        required: true
+    },
+    orderProducts: {
+        type: [
+            {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: "orderProduct"
             }
-        }
-    ],
+        ]
+    },
+    email: {
+        type: String,
+        required: true
+    },
+    phone: {
+        type: String,
+        required: true
+    },
     adress: {
-        country: {
-            type: String,
-            required: true
-        },
         city: {
             type: String,
             required: true
@@ -35,20 +41,16 @@ const orderSchema = mongoose.Schema({
             required: true
         }
     },
-    paymentMethod: {
-        type: String,
-        enum: ["cash", "visa"],
-        required: true
-    },
     paymentId: {
         type: String,
         required: true
     },
-    receipt_url: {
-        type: String
+    paymentMethod: {
+        type: String,
+        required: true
     },
-    price: {
-        type: Number,
+    receiptUrl: {
+        type: String,
         required: true
     },
     recieve: {
@@ -58,13 +60,19 @@ const orderSchema = mongoose.Schema({
     },
     orderTime: {
         type: Number,
-        default: 30
+        default: 15
     },
-    complete: {
-        type: Boolean,
-        default: false
+    status: {
+        type: String,
+        enum: ["charged", "prepared", "canceled"],
+        default: "prepared"
+    },
+    price: {
+        type: Number,
+        required: true
     }
-})
+}, { timestamps: true })
 
 const Order = mongoose.model("order", orderSchema)
 module.exports = Order;
+
