@@ -13,8 +13,8 @@ const purchasesSchema = mongoose.Schema({
         required: true
     },
     user: {
-        type: String,
-        required: true
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "user",
     },
     paymentId: {
         type: String,

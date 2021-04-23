@@ -12,10 +12,13 @@ const orderProductSchema = mongoose.Schema({
     toppings: {
         type: [
             {
-                topping: String,
+                topping: {
+                    type: String
+                },
                 quantity: {
                     type: String,
-                    enum: ["with", "plus"]
+                    enum: ["with", "plus"],
+                    default: "with"
                 }
             }
         ]
@@ -23,7 +26,9 @@ const orderProductSchema = mongoose.Schema({
     specialAdditions: {
         type: [
             {
-                addition: String,
+                addition: {
+                    type: String
+                },
                 quantity: {
                     type: String,
                     enum: ["with", "plus"]

@@ -12,13 +12,12 @@ exports.isAdmin =  (req, res, next) => {
         res.status(500).json({message: "something went wrong"});
     }
 }
-
 exports.isUser =  (req, res, next) => {
     let token = req.headers.authorization;
     try {
         const verify =  jwt.verify(token, process.env.JWTSECRET);
         req.email = verify.email;
-        req._id = verify._id;
+        req.user = verify._id;
         next();
     } catch (err) {
         res.status(400).json({message: "you should sign in first"});

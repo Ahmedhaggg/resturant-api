@@ -2,11 +2,20 @@ const router = require('express').Router();
 const orderController = require('../controller/order')
 const isValid = require('../middelwares/check');
 const check = require('express-validator').check;
+const guards = require('../middelwares/guards');
+const CheckAndGetUserId = require('../middelwares/getUserId');
 // {token, products, adress, amount, recieve, email, phone}
 router.get('/',
+    guards.isAdmin,
     orderController.getOrders
 )
+router.get('/client/orders',
+    CheckAndGetUserId,
+    orderController.getClientOrder
+)
+
 router.post('/add', 
+    CheckAndGetUserId,
     check("token").not().isEmpty().withMessage("token is undefined"),
     check("products").isArray().isLength({min: 1}).withMessage("token is undefined"),
     check("adress").custom((value, {req}) => {
@@ -26,7 +35,16 @@ router.post('/add',
     isValid,
     orderController.addOrder
 )
-router.put('/complete', orderController.completeOrder)
-router.delete('/cancel/:orderid', orderController.cancelOrder)
-router.delete('/', orderController.deleteOrder)
+router.put('/complete/:orderid', 
+    guards.isAdmin,
+    orderController.completeOrder
+)
+router.put('/cancel/:orderid', 
+    CheckAndGetUserId,
+    orderController.cancelOrder
+)
+router.delete('/delete/:orderid', 
+    guards.isAdmin,
+    orderController.deleteOrder
+)
 module.exports = router;

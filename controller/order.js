@@ -2,6 +2,9 @@ const stripe = require('stripe')("sk_test_51HkkefDHNiYh4mtD1YXl3fpM6wfVvRTWD81AN
 const Order = require('../model/order');
 const OrderProducts = require('../model/orderProducts');
 const Purchases = require('../model/purchases');
+const mongoose = require('mongoose')
+
+
 
 exports.getOrders = async (req, res, next) => {
     let query = Order.find()
@@ -22,7 +25,9 @@ exports.getOrders = async (req, res, next) => {
         res.status(500).json({message: "something went wrong"})
     }
 }
-exports.getOrder = async (req, res, next) => {
+
+exports.getClientOrder = async (req, res, next) => {
+    console.log(req.user)
     if (req.user) {
         let userOrder = await Order.findOne({user : req.user}).populate("orderProducts").exec();
         if (userOrder) {
@@ -84,7 +89,7 @@ exports.addOrder = async (req, res, next) => {
             }
             let newOrder = new Order(orderData);
             let save = await newOrder.save();
-            res.status(200).json({
+            res.status(201).json({
                 order: save,
                 message: "your order has been added successfully"
             })
@@ -138,8 +143,9 @@ exports.completeOrder = async (req, res, next) => {
 exports.cancelOrder = async (req, res, next) => {
     let orderid = req.params.orderid;
     let ip = req.ip
+
     try {
-        let order = await Order.findOne({id: orderid, ip})
+        let order = await Order.findOne({_id: mongoose.Types.ObjectId(orderid), ip})
         if (!order) {
             res.status(500).json({message: "order not found to cancel"})
         } else {
@@ -178,8 +184,9 @@ exports.deleteOrder = async (req, res, next) => {
         if (!deletingOrder) {
             return res.status(200).json({message: "order of this id is not found"} )
         } 
-        if (order) {
+        if (deletingOrder) {
             let deletingOrderProducts = await OrderProducts.deleteMany({_id: {$in: deletingOrder.orderProducts}});
+            console.log(deletingOrderProducts)
             return res.status(200).json({
                 message: "order has been deleted succcessfully"
             })

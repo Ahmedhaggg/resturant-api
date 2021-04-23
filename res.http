@@ -64,7 +64,7 @@ POST  http://localhost:3000/api/orders/add
 Content-Type: application/json
 
 {
-    "token": "tok_1IgKHkDHNiYh4mtDyLIonend", 
+    "token": "tok_1IiP0ADHNiYh4mtD0sWdnKxs", 
     "products": [
         
         {
@@ -99,20 +99,25 @@ Content-Type: application/json
 # recieve is [ pick up or delivery]
 
 
-####### remote adress #########
-POST http://localhost:3000/adress
+####### GET orders ####
+GET http://localhost:3000/api/orders
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDY1YjllYzFkMWMwYjBhMjA1YTk3NjkiLCJlbWFpbCI6ImFkbWluQGdtYWlsLmNvbSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTYxODg1NDkwNSwiZXhwIjoxNjE5MTE0MTA1fQ.7PBOI_2W1gM6d9RIdj7Y8M6OAKgZlgQLFfd21r6N9Q0
 
 
+###### client order
+GET http://localhost:3000/api/orders/client/orders
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDY1YjllYzFkMWMwYjBhMjA1YTk3NjkiLCJlbWFpbCI6ImFkbWluQGdtYWlsLmNvbSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTYxODg1NDkwNSwiZXhwIjoxNjE5MTE0MTA1fQ.7PBOI_2W1gM6d9RIdj7Y8M6OAKgZlgQLFfd21r6N9Q0
 
-########## create #####
-POST http://localhost:3000/creat
+#### compelet order ##
+PUT http://localhost:3000/api/orders/complete/607f27c3a679be0fd88725e0
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDY1YjllYzFkMWMwYjBhMjA1YTk3NjkiLCJlbWFpbCI6ImFkbWluQGdtYWlsLmNvbSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTYxODg1NDkwNSwiZXhwIjoxNjE5MTE0MTA1fQ.7PBOI_2W1gM6d9RIdj7Y8M6OAKgZlgQLFfd21r6N9Q0
 
-######### put ####
-PUT http://localhost:3000/put
+####### cancel order ######
+PUT http://localhost:3000/api/orders/cancel/607dd2c07a889f081c5d8508
 
+###### delete order
+DELETE  http://localhost:3000/api/orders/delete/607dd3d3e11816124c201098
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDY1YjllYzFkMWMwYjBhMjA1YTk3NjkiLCJlbWFpbCI6ImFkbWluQGdtYWlsLmNvbSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTYxODg1NDkwNSwiZXhwIjoxNjE5MTE0MTA1fQ.7PBOI_2W1gM6d9RIdj7Y8M6OAKgZlgQLFfd21r6N9Q0
 
-######### get #####
-post http://localhost:3000/get
-
-##### delete
-DELETE  http://localhost:3000/delete
+#### get purchases
+GET  http://localhost:3000/api/purchases/anylisis
