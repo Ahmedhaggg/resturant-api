@@ -8,7 +8,7 @@ Content-Type: application/json
 }
 ############# get all products ##########
 GET http://localhost:3000/api/products/
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDY1YjllYzFkMWMwYjBhMjA1YTk3NjkiLCJlbWFpbCI6ImFkbWluQGdtYWlsLmNvbSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTYxODIyNjUzMiwiZXhwIjoxNjE4NDg1NzMyfQ.tPVI--BIoDb_XiWv8LpeHAjKd4xBaIQYlLNU9OmrEfc
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDY1YjllYzFkMWMwYjBhMjA1YTk3NjkiLCJlbWFpbCI6ImFkbWluQGdtYWlsLmNvbSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTYxOTk1NDAyMCwiZXhwIjoxNjIwMjEzMjIwfQ.JGwhxfpexYGuSe4JwNToNNBIWvMPoL30laE5BXOlHVU
 ######## get product #########
 GET http://localhost:3000/api/products/product/6065be252cc9b504a4df88ab
 
