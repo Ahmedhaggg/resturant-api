@@ -8,7 +8,7 @@ Content-Type: application/json
 }
 ############# get all products ##########
 GET http://localhost:3000/api/products/
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDY1YjllYzFkMWMwYjBhMjA1YTk3NjkiLCJlbWFpbCI6ImFkbWluQGdtYWlsLmNvbSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTYxOTk1NDAyMCwiZXhwIjoxNjIwMjEzMjIwfQ.JGwhxfpexYGuSe4JwNToNNBIWvMPoL30laE5BXOlHVU
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDY1YjllYzFkMWMwYjBhMjA1YTk3NjkiLCJlbWFpbCI6ImFkbWluQGdtYWlsLmNvbSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTYxODIyNjUzMiwiZXhwIjoxNjE4NDg1NzMyfQ.tPVI--BIoDb_XiWv8LpeHAjKd4xBaIQYlLNU9OmrEfc
 ######## get product #########
 GET http://localhost:3000/api/products/product/6065be252cc9b504a4df88ab
 
@@ -64,7 +64,7 @@ POST  http://localhost:3000/api/orders/add
 Content-Type: application/json
 
 {
-    "token": "tok_1IiP0ADHNiYh4mtD0sWdnKxs", 
+    "token": "tok_1Ilg6JDHNiYh4mtDNFtZWmW1", 
     "products": [
         
         {
@@ -101,7 +101,7 @@ Content-Type: application/json
 
 ####### GET orders ####
 GET http://localhost:3000/api/orders
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDY1YjllYzFkMWMwYjBhMjA1YTk3NjkiLCJlbWFpbCI6ImFkbWluQGdtYWlsLmNvbSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTYxODg1NDkwNSwiZXhwIjoxNjE5MTE0MTA1fQ.7PBOI_2W1gM6d9RIdj7Y8M6OAKgZlgQLFfd21r6N9Q0
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDY1YjllYzFkMWMwYjBhMjA1YTk3NjkiLCJlbWFpbCI6ImFkbWluQGdtYWlsLmNvbSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTYyMDc2MTQ5NSwiZXhwIjoxNjIxMDIwNjk1fQ.qmzxicoqGQgb8_btYjNGuXiS41yaZcqUUQyLSUj2A4Q
 
 
 ###### client order
@@ -121,3 +121,6 @@ Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDY1YjllYzFkMWMw
 
 #### get purchases
 GET  http://localhost:3000/api/purchases/anylisis
+
+######## get Purchases by id
+POST http://localhost:3000/api/purchases/607f29eaa679be0fd88725e1

@@ -6,7 +6,7 @@ const guards = require('../middelwares/guards');
 const CheckAndGetUserId = require('../middelwares/getUserId');
 // {token, products, adress, amount, recieve, email, phone}
 router.get('/',
-    guards.isAdmin,
+    // guards.isAdmin,
     orderController.getOrders
 )
 router.get('/client/orders',

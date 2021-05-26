@@ -4,6 +4,8 @@ const guards = require('../middelwares/guards')
 router.get('/anylisis', 
     purchasesController.anylisis
 )
-
+router.post('/:id' , 
+    purchasesController.getPurchasesById
+)
 
 module.exports = router;
