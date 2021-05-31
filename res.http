@@ -101,7 +101,7 @@ Content-Type: application/json
 
 ####### GET orders ####
 GET http://localhost:3000/api/orders
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDY1YjllYzFkMWMwYjBhMjA1YTk3NjkiLCJlbWFpbCI6ImFkbWluQGdtYWlsLmNvbSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTYyMDc2MTQ5NSwiZXhwIjoxNjIxMDIwNjk1fQ.qmzxicoqGQgb8_btYjNGuXiS41yaZcqUUQyLSUj2A4Q
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDY1YjllYzFkMWMwYjBhMjA1YTk3NjkiLCJlbWFpbCI6ImFkbWluQGdtYWlsLmNvbSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTYyMjQ1Mjk1OCwiZXhwIjoxNjIyNzEyMTU4fQ.IOGEcBQzoVp8NhzfUpstDVLAjaFWk7Nl89HNyRn6N_M
 
 
 ###### client order

@@ -41,6 +41,12 @@ exports.getUserProfile = async (req, res, next) => {
      } 
 }
 exports.updateImageProfile = async (req, res, next) => {
+     if (req.fileFilterError) {
+          return res.status(400).json(req.fileFilterError);
+     }
+     if (!req.file) {
+          return res.status(400).json({message: "you should select file"});
+     }
      const newImage = req.file.filename;
      try {
           let userLastData = await User.findOne({email: req.email}).selected("profileImg");

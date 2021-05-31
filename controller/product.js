@@ -63,7 +63,9 @@ exports.getProduct = async (req, res, next) => {
 
 
 exports.addProduct = async (req, res, next) => {
-
+    if (req.fileFilterError) {
+        return res.status(400).json(req.fileFilterError);
+    }
     if (!req.file) {
         return res.status(400).json({message: "you should select file"});
     }
@@ -123,8 +125,9 @@ exports.addProduct = async (req, res, next) => {
         })
         
     } catch (error) {
+        console.log(error.code);
         fs.unlinkSync(uploadsPath + req.file.filename)
-        if (error.index) {
+        if (error.code == 11000) {
             res.status(400).json({message: "there are product with this name"})
         } else {
             res.status(500).json({message: "something went wrong"})

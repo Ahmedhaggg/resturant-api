@@ -17,7 +17,10 @@ exports.uploadProductImage =  multer({
             } else if (file.mimetype == "image/png") {
                 cb(null, true)
             } else {
-                cb("this file can't be image, please select image", false);
+                req.fileFilterError = {
+                    message: "file you select it can't be image, you should select image"
+                }
+                cb(null, true)
             }
         },
         limits: {

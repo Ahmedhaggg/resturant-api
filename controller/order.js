@@ -60,7 +60,7 @@ class OrdersAnylisis {
 
 exports.getOrders = async (req, res, next) => {
     let query = Order.find()
-        .populate("products")
+        .select("orderTime status user recieve price updatedAt")
         .sort({createdAt: 'desc'}) // asc
         // .select("status orderTime user recieve price updatedAt")
         
