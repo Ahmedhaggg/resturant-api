@@ -18,6 +18,7 @@ exports.isUser =  (req, res, next) => {
         const verify =  jwt.verify(token, process.env.JWTSECRET);
         req.email = verify.email;
         req.user = verify._id;
+        req.role = verify.role;
         next();
     } catch (err) {
         res.status(400).json({message: "you should sign in first"});

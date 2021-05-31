@@ -43,6 +43,7 @@ exports.getProduct = async (req, res, next) => {
         defaultTopping: product.defaultTopping,
         specialsAdditions: product.specialsAdditions,
         pieces: product.pieces,
+        sizes: product.sizes,
         price: product.price,
         delete: {
             method: "DELETE",
@@ -67,7 +68,18 @@ exports.addProduct = async (req, res, next) => {
         return res.status(400).json({message: "you should select file"});
     }
     let {name, descripition, category , sizes, toppings, pieces , specialsAdditions, price} = req.body;
-
+    if (typeof(sizes) !== "undefined") {
+        sizes = JSON.parse(sizes);
+    } 
+    if (typeof(toppings) !== "undefined") {
+        toppings = JSON.parse(toppings);
+    } 
+    if (typeof(specialsAdditions) !== "undefined") {
+        specialsAdditions = JSON.parse(specialsAdditions);
+    } 
+    if (typeof(pieces) !== "undefined") {
+        pieces = JSON.parse(pieces);
+    }
     let slug = slugify(name);
     let productData = {
         name,
@@ -132,12 +144,12 @@ exports.deleteProduct = async (req, res, next) => {
     }
     res.status(500).json({message: "something went wrong"});
 }
-exports.updateProduct = async (req, res, next) => {
+exports.updateProduct =  (req, res, next) => {
     const { id , newData } = req.body;
     if (!id) {
         return res.status(400).json({message: "can't update product without id"})
     }
-    await Product.findByIdAndUpdate(id, newData, {new: true}, (err, update) => {
+    Product.findByIdAndUpdate(id, newData, {new: true}, (err, update) => {
         if (update) {
             return res.status(200).json({
                 message: "product is updated successfully",

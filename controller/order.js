@@ -41,7 +41,20 @@ class OrdersAnylisis {
         }
     }
     userOrders() {
-        
+        let usersOrders = [];
+        let nonUsersOrders = [];
+        this.orders.forEach(order => {
+            if (order.user !== null) 
+                usersOrders.push(order);
+            else
+                nonUsersOrders.push(order);
+        })
+        return {
+            usersOrders,
+            usersOrdersLength : usersOrders.length,
+            nonUsersOrders,
+            nonUsersOrdersLength: nonUsersOrders.length
+        }
     }
 }
 
@@ -60,15 +73,14 @@ exports.getOrders = async (req, res, next) => {
                 orders: []
             })
         }
-
+        let orderAnylisis = new OrdersAnylisis(orders);
         res.status(200).json({
             ordersLength: orders.length,
-
-            orders
+            recieveOrders: orderAnylisis.recieveOrders(),
+            statusOrders: orderAnylisis.statusOrders(),
+            usersOrders: orderAnylisis.userOrders()
         })
     } catch (error) {
-        console.log("something")
-        console.log(error);
         res.status(500).json({message: "something went wrong"})
     }
 }

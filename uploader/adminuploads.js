@@ -12,8 +12,12 @@ exports.uploadProductImage =  multer({
         fileFilter: (req, file, cb) => {
             if (file.mimetype === "image/jpeg" || file.mimetype === "image/jpg" || file.mimetype === "image/png") {
                 cb(null, true)
+            } else if (file.mimetype == "image/jpg") {
+                cb(null, true)
+            } else if (file.mimetype == "image/png") {
+                cb(null, true)
             } else {
-                cb(null, false)
+                cb("this file can't be image, please select image", false);
             }
         },
         limits: {
