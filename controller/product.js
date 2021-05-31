@@ -139,7 +139,7 @@ exports.deleteProduct = async (req, res, next) => {
             if (err) 
                 res.status(500).json({message: "something went wrong"})
             else 
-                res.status(500).json({message: "product is deleted successfully"})
+                res.status(200).json({message: "product is deleted successfully"})
         });
     }
     res.status(500).json({message: "something went wrong"});
